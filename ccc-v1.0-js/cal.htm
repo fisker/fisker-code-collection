@@ -119,7 +119,7 @@ var infoBarStyle=new css(
 //全局变量
 
 var gTime=new Date();  //global time
-var gYear=gTime.getYear();
+var gYear=gTime.getFullYear();//*fix error by fisker*//
 var gMonth=gTime.getMonth()+1;
 var gDate=gTime.getDate();
 var gHour=gTime.getHours();
@@ -963,7 +963,7 @@ function nextMonthAction(gridWidth,gridHeight,year,month,pressedDate,calType){
 function lastHourAction(gridWidth,gridHeight,year,month,pressedDate,calType){
   var newtime=gTime.getTime();
   gTime.setTime(newtime-60*60*1000);
-  gYear=gTime.getYear();
+  gYear=gTime.getFullYear();
   gMonth=gTime.getMonth()+1;
   gDate=gTime.getDate();
   gHour=gTime.getHours();
@@ -978,7 +978,7 @@ function lastHourAction(gridWidth,gridHeight,year,month,pressedDate,calType){
 function nextHourAction(gridWidth,gridHeight,year,month,pressedDate,calType){
   var newtime=gTime.getTime();
   gTime.setTime(newtime+60*60*1000);
-  gYear=gTime.getYear();
+  gYear=gTime.getFullYear();
   gMonth=gTime.getMonth()+1;
   gDate=gTime.getDate();
   gHour=gTime.getHours();
@@ -1028,7 +1028,7 @@ function setTimeNow(ifReset){
   if(ifReset){
     clearTimeout(timer);
     gTime=new Date();
-    gYear=gTime.getYear();
+    gYear=gTime.getFullYear();
     gMonth=gTime.getMonth()+1;
     gDate=gTime.getDate();
     gZone0=gZone=-gTime.getTimezoneOffset()/60;
@@ -1039,7 +1039,7 @@ function setTimeNow(ifReset){
   }
   var newtime=gTime.getTime();
   gTime.setTime(newtime+500);
-  gYear=gTime.getYear();
+  gYear=gTime.getFullYear();
   gMonth=gTime.getMonth()+1;
   gDate=gTime.getDate();
   gHour=gTime.getHours();
@@ -1065,6 +1065,26 @@ function refreshPressedCal(){
 buildCalTable(70,70,gYear,gMonth,gDate,1);
 
 </script>
+<div style="border:1px solid #f00;background:#eee;width:495px;padding:5px">
+  add by fisker
+  <hr/>
+使用 Date :: getFullYear() 替换 Date :: getYear() <br/>
+本日历看点:<br/>
+1) 按照习惯，公元1582年10月4日之前（包括10月4日），采用儒略（Julian）历，公元1582年10月15日之后（包括10月15日），采用格里（Gregorian）历，公元1582年10月5日到10月14日，是格里历中被删掉的十天，故本年历无此十天。
+<button onclick="javascript:updateCalTable(70,70,1582,10,5,1);">1582-10-4</button>
+<br/>
+<br/>
+2) 百度1978年农历八月初四的公历日期显示为“1978年9月5日（戊午年辛酉月庚午日）”，而114网上却显示为“1978年9月6日星期三（戊午年庚申月辛未日）”。
+记者从南京紫金山天文台证实，1978年农历八月初四是公历的9月6日，在干支纪年中属于戊午年辛酉月辛未日
+http://news.sina.com.cn/s/2005-02-05/03145049526s.shtml
+<button onclick="javascript:updateCalTable(70,70,1978,9,6,1);">1978-9-6</button>
+<br/>
+<br/>
+3) 目前网上流行的150年（1900年-2049年）在线万年历是存在错误的，比如公历2004年2月4日（即农历正月十四日）立春，从这一天起才应该是农历甲申年，而此万年历早在公历2004年1月22日（即农历正月初一）春节，就已经显示为甲申年了！
+http://lishouli.blog.hexun.com/5992741_d.html
+<button onclick="javascript:updateCalTable(70,70,2004,2,4,1);">2004-2-4</button>
+</div>
+
 <br>版权所有：(C) 2002-2003 <a href="mailto:wy25@mail.bnu.edu.cn" title=QQ:32460746>neweroica </a>
 </center>
 </html>
